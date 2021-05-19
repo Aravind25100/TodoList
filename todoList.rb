@@ -29,7 +29,8 @@ class Todo
     if @todoList[0][:due_date] > Date.today
       "[ ] #{@todoList[0][:text]} #{@todoList[0][:due_date]}"
     else
-      @todoList[0][:completed] ? "[X] #{@todoList[0][:text]} #{@todoList[0][:due_date]}" : "[ ] #{@todoList[0][:text]} #{@todoList[0][:due_date]}"
+      todo_result = @todoList[0][:completed] ? "[X] #{@todoList[0][:text]} " : "[ ] #{@todoList[0][:text]} "
+      @todoList[0][:due_date] == Date.today ? todo_result : "#{todo_result}#{@todoList[0][:due_date]}"
     end
   end
 end
