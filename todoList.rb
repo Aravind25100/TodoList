@@ -9,33 +9,27 @@ class Todo
 
   # Here i am cheching if the todo is overdue or not,if it is overdue i will return that overdue todo only
   def overdue?
-    if @todoList[0][:due_date] < Date.today
-      @todoList
-    end
+    @todoList[0][:due_date] < Date.today
   end
 
   # Here i am cheching if the todo date is today or not,if it is today i will return that todo only
   def due_today?
-    if @todoList[0][:due_date] == Date.today
-      @todoList
-    end
+    @todoList[0][:due_date] == Date.today
   end
 
   # Here i am cheching if the todo will do in the future or not,if it is true i will return that todo only
   def due_later?
-    if @todoList[0][:due_date] > Date.today
-      @todoList
-    end
+    @todoList[0][:due_date] > Date.today
   end
 
   # This is used to return the data of an particular todo list as a string
   def to_displayable_string
-    if @todoList[0][:due_date] == Date.today
-      @todoList[0][:completed] == true ? "[X] #{@todoList[0][:text]}" : "[ ] #{@todoList[0][:text]}"
-    elsif @todoList[0][:due_date] < Date.today
-      @todoList[0][:completed] == true ? "[X] #{@todoList[0][:text]} #{@todoList[0][:due_date]}" : "[ ] #{@todoList[0][:text]} #{@todoList[0][:due_date]}"
-    else
+    # Here I am just checking if the toso for due later or not if it is yes i will return the due later todos
+    # if it is not due later todos,it will due_today or overdue todos so i just return the todos with the completed state
+    if @todoList[0][:due_date] > Date.today
       "[ ] #{@todoList[0][:text]} #{@todoList[0][:due_date]}"
+    else
+      @todoList[0][:completed] ? "[X] #{@todoList[0][:text]} #{@todoList[0][:due_date]}" : "[ ] #{@todoList[0][:text]} #{@todoList[0][:due_date]}"
     end
   end
 end
