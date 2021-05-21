@@ -2,36 +2,33 @@ require "date"
 
 class Todo
   def initialize(text, due_date, completed)
-    # Here i am creating the array of hash to store the todo detail
-    @todoList = []
-    @todoList.push({ :text => text, :due_date => due_date, :completed => completed })
+    #Here i am creating the instance variables to store the data
+    @text = text
+    @due_date = due_date
+    @completed = completed
   end
 
   # Here i am cheching if the todo is overdue or not,if it is overdue i will return that overdue todo only
   def overdue?
-    @todoList[0][:due_date] < Date.today
+    @due_date < Date.today
   end
 
   # Here i am cheching if the todo date is today or not,if it is today i will return that todo only
   def due_today?
-    @todoList[0][:due_date] == Date.today
+    @due_date == Date.today
   end
 
   # Here i am cheching if the todo will do in the future or not,if it is true i will return that todo only
   def due_later?
-    @todoList[0][:due_date] > Date.today
+    @due_date > Date.today
   end
 
   # This is used to return the data of an particular todo list as a string
   def to_displayable_string
-    # Here I am just checking if the toso for due later or not if it is yes i will return the due later todos
-    # if it is not due later todos,it will due_today or overdue todos so i just return the todos with the completed state
-    if @todoList[0][:due_date] > Date.today
-      "[ ] #{@todoList[0][:text]} #{@todoList[0][:due_date]}"
-    else
-      todo_result = @todoList[0][:completed] ? "[X] #{@todoList[0][:text]} " : "[ ] #{@todoList[0][:text]} "
-      @todoList[0][:due_date] == Date.today ? todo_result : "#{todo_result}#{@todoList[0][:due_date]}"
-    end
+    # Here i am checking the todo status and its due date and then it will return the todo result
+    display_status = @completed ? "[X]" : "[ ]"
+    display_date = due_today? ? nil : @due_date
+    "#{display_status} #{@text} #{display_date}"
   end
 end
 
